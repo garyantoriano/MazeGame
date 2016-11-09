@@ -6,7 +6,7 @@
   position: fixed;
   margin-top: 0;
   transition: margin-top .5s linear;
-  z-index: 1000;
+  z-index: 100;
 }
 
 .popup-start.hide {
@@ -99,6 +99,7 @@
   right: 80px;
   position: fixed;
   transition: top .5s linear;
+  z-index: 100;
 } 
 
 .btn-pause.hide {
