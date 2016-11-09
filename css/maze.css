@@ -1,0 +1,33 @@
+
+.maze-container {
+	/*background-image: url('../img/background-A-2.jpg');*/
+	width: calc(100% - 180px);
+  height: calc(100% - 160px);
+
+  margin: 80px 80px 20px 80px;
+	position: relative;
+	perspective: 3000px;
+	transform-style: preserve-3d;
+	/*background: skyblue;*/
+
+}
+
+.cube-container {
+	perspective: 3000px;
+	perspective-origin: 50% 50%;
+	width: 900px;
+	height: 500px;
+	border: solid 2px black;
+  background-color: rgba(235, 215, 8, 0.47);
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateY(0deg) rotateZ(0deg);
+}
+
+@media only screen and (max-width: 900px) {
+  .maze-container {
+		width: calc(100% - 80px);
+  	height: calc(100% - 100px);
+	  margin: 60px 40px 10px 40px;
+	}
+}
+

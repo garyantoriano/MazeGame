@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <title>Laberinto</title>
+      <link rel="stylesheet" href="css/popup.css">
+      <link rel="stylesheet" href="css/progress-bar.css">
+      <link rel="stylesheet" href="css/maze.css">
+      <link rel="stylesheet" href="css/cube.css">
+      <link rel="stylesheet" href="css/main.css">
+  </head>
+
+  <body>   
+    <div class="background">
+      <!-- POP UP FOR STAR GAME -->
+      <div id="popup-start" class="popup-start">
+        <div class="popup-menu">
+          <img id="image-popup" class="image-popup" src="img/pig-normal.png">
+          <button id="btn-start" class="btn-start" onclick="startGame()"></button>
+          <button id="btn-restart" class="btn-restart hide" onclick="restartGame()"></button>
+        </div>
+      </div>
+
+      <button id="btn-pause" class="btn-pause hide" onclick="pauseGame()"></button>
+      
+      <div id="progress-bar-container" class="progress-bar-container hide">
+        <div class="flag-start"></div>
+        <progress id="progress-bar" class="progress-bar" value="0" max="1000"></progress>
+        <div class="progress-bar-img"></div>
+        <div class="flag-end"></div>
+        <div id="player-icon" class="progress-bar-player-icon"></div>
+        <div class="progress-bar-enemy-icon"></div>
+      </div>
+      
+      <!-- MAIN CONTENT - MAZEGAME -->
+      <div class="maze-container">
+        <div id="cube-container" class="cube-container">
+          <div id="cube-model" class="cube hide">
+            <div class="top"></div>
+            <div class="bottom"></div>
+            <div class="left"></div>
+            <div class="right"></div>
+            <div class="back"></div>
+            <div class="front"></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </body>
+
+  <script type="text/javascript" src="js/progress-bar.js"></script>
+  <script type="text/javascript" src="js/cube.js"></script>
+  <script type="text/javascript" src="js/mazeGame.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</html>
