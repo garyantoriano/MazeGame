@@ -1,19 +1,39 @@
 /**
  * Created by Gary on 11/3/2016.
  */
-function ProgressBar(){
-  this.activeAnimation = function (){
-    var progressBar = document.getElementById('progress-bar');
-    var value = 0;
-    var playerIcon = document.getElementById('player-icon');
-    var positionPlayerIcon = parseInt(playerIcon.offsetLeft, 10);
-    console.log(playerIcon.offsetLeft);
+function ProgressBar(maxValue){
+  this.value = 0;
+  this.maxValue = maxValue;
+  this.progressBarHtml = document.getElementById('progress-bar');
+  this.progressBarHtml.setAttribute('value', '0');
+  this.progressBarHtml.setAttribute('max', ''+this.maxValue);
+  this.playerIcon = document.getElementById('player-icon');
 
-    setInterval(function (){
-      value = value + 1;
-      positionPlayerIcon = positionPlayerIcon + 1;
-      progressBar.value = value;
-      playerIcon.style.left = positionPlayerIcon + 'px';
-    }, 300);
+  // this.pauseAnimation = function (){
+  //   this.isPaused = true;
+  // }
+  //
+  // this.resumeAnimation = function (){
+  //   this.isPaused = false;
+  // }
+  //
+  // this.restarAnimation = function (){
+  //   this.stopAnimation();
+  //   this.activeAnimation();
+  // }
+  //
+  // this.stopAnimation = function (){
+  //   window.clearInterval(this.animationId);
+  // }
+}
+
+ProgressBar.prototype.incrementValue = function() {
+  if(this.value  <= this.maxValue) {
+    this.value++;
+    this.progressBarHtml.value = this.value;
+
+    var withProgressBar = this.progressBarHtml.offsetWidth;
+    var newPositionPlayerIcon = (withProgressBar / this.maxValue) * this.value;
+    this.playerIcon.style.left = newPositionPlayerIcon + 'px';
   }
 }

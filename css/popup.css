@@ -59,10 +59,9 @@
 .btn-start:hover {
   border: 4px solid white;
   cursor: pointer;
-  
 }
 
-.btn-restart, .btn-pause {
+.btn-resume, .btn-pause {
   background-size: contain;
   background-position: center;
   border-radius: 50%;
@@ -71,7 +70,7 @@
   height: 60px;
 }
 
-.btn-restart {
+.btn-resume {
   background-image: url('../img/replay.png');
   border: solid 4px black; 
 
@@ -82,11 +81,11 @@
   position: absolute;
 } 
 
-.btn-restart.hide {
+.btn-resume.hide {
   display: none;
 }
 
-.btn-restart:hover {
+.btn-resume:hover {
   border: 4px solid white;
   cursor: pointer;
 }

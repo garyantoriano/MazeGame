@@ -6,19 +6,18 @@
 	position: relative;
 	perspective: 3000px;
 	transform-style: preserve-3d;
+	top: 200px;
 	/*background: skyblue;*/
 
 }
 
 .cube-container {
-	perspective: 3000px;
-	perspective-origin: 50% 50%;
 	width: 800px;
 	height: 700px;
-	border: solid 2px black;
-  background-color: rgba(235, 215, 8, 0.47);
+  /*background-color: rgba(235, 215, 8, 0.47);*/
   transform-style: preserve-3d;
-  transform: rotateX(60deg) rotateZ(-20deg);
+  /*transform: rotateX(30deg) rotateZ(-20deg);*/
+  /*transform: rotateX(65deg) rotateY(0deg) rotateZ(0deg);*/
   position: absolute;
   left: 200px;
 }

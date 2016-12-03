@@ -13,13 +13,13 @@
   <body>   
     <div class="background">
       <!-- POP UP FOR STAR GAME -->
-      <div id="popup-start" class="popup-start">
-        <div class="popup-menu">
-          <img id="image-popup" class="image-popup" src="img/pig-normal.png">
-          <button id="btn-start" class="btn-start" onclick="startGame()"></button>
-          <button id="btn-restart" class="btn-restart hide" onclick="restartGame()"></button>
-        </div>
-      </div>
+      <!--<div id="popup-start" class="popup-start">-->
+        <!--<div class="popup-menu">-->
+          <!--<img id="image-popup" class="image-popup" src="img/pig-normal.png">-->
+          <!--<button id="btn-start" class="btn-start" onclick="startGame()"></button>-->
+          <!--<button id="btn-resume" class="btn-resume hide" onclick="resumeGame()"></button>-->
+        <!--</div>-->
+      <!--</div>-->
 
       <button id="btn-pause" class="btn-pause hide" onclick="pauseGame()"></button>
       
@@ -35,14 +35,7 @@
       <!-- MAIN CONTENT - MAZEGAME -->
       <div class="maze-container">
         <div id="cube-container" class="cube-container">
-          <div id="cube-model" class="cube hide">
-            <div class="top"></div>
-            <div class="bottom"></div>
-            <div class="left"></div>
-            <div class="right"></div>
-            <div class="back"></div>
-            <div class="front"></div>
-          </div>
+
         </div>
       </div>
       
@@ -51,6 +44,7 @@
 
   <script type="text/javascript" src="js/progress-bar.js"></script>
   <script type="text/javascript" src="js/cube.js"></script>
+  <script type="text/javascript" src="js/maze.js"></script>
   <script type="text/javascript" src="js/mazeGame.js"></script>
   <script type="text/javascript" src="js/main.js"></script>
 
