@@ -24,15 +24,15 @@ Cube.prototype.createCube = function() {
   top.classList.add('top');
 
   var left = document.createElement("div");
-  left.style.width = this.width + 'px';
+  left.style.width = this.thickness + 'px';
   left.style.height = this.height + 'px';
   var right = left.cloneNode(true);
 
-  left.style.transform = 'rotateY(-90deg) translateZ('+(this.width/2)+'px)';
+  left.style.transform = 'rotateY(-90deg) translateZ('+(this.thickness/2)+'px)';
   left.classList.add('left');
   left.style.backgroundColor= 'green';
 
-  right.style.transform = 'rotateY(90deg) translateZ('+(this.width/2)+'px)';
+  right.style.transform = 'rotateY(90deg) translateZ('+(this.width-(this.thickness/2))+'px)';
   right.classList.add('right');
   right.style.backgroundColor= 'green';
 

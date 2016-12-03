@@ -1,13 +1,14 @@
 /**
  * Created by Gary on 11/26/2016.
  */
-const CUBE_SIZE = 50;
+const CUBE_SIZE = 35;
 const VISITED = 0;
 const WALL = 1;
 const NON_VISITED = 2;
 const FUTURE_VISIT = 3;
 const CSS_WALL_BRICK = 'wall';
-const CSS_FLOOR_GRASS = 'floor'
+const CSS_FLOOR_GRASS = 'floor';
+const THICKNESS_PLATFORM = 10;
 
 function Maze(rows, columns){
   this.rows = rows;
@@ -23,7 +24,7 @@ function Maze(rows, columns){
 }
 
 Maze.prototype.createPlatform = function (){
-  new Cube(-CUBE_SIZE, 4*CUBE_SIZE, -2, (this.columns+2)*CUBE_SIZE, 50, (this.rows+4)*CUBE_SIZE, CSS_FLOOR_GRASS);
+  new Cube(-CUBE_SIZE, CUBE_SIZE*Math.floor(this.rows/2), -2, (this.columns+2)*CUBE_SIZE, THICKNESS_PLATFORM, (this.rows+2)*CUBE_SIZE, CSS_FLOOR_GRASS);
 };
 
 Maze.prototype.createMaze = function() {
@@ -61,7 +62,6 @@ Maze.prototype.createMaze = function() {
 };
 
 Maze.prototype.deleteWall = function (node){
-  // console.log(node);
   if(node.x-2 >= 0 && this.maze[node.x-2][node.y] == VISITED) {
     this.maze[node.x-1][node.y] = VISITED;
     return;
@@ -117,8 +117,6 @@ Maze.prototype.popRandomNode = function(nodes) {
   var index = Math.floor(Math.random()*nodes.length);
   var node = nodes[index];
   nodes.splice(index, 1); //Quitamos el nodo
-  // console.log("Nodeeee");
-  // console.log(node);
   return node;
 };
 
