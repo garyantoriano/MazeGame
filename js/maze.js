@@ -2,13 +2,17 @@
  * Created by Gary on 11/26/2016.
  */
 const CUBE_SIZE = 35;
+const THICKNESS_PLATFORM = 10;
+
 const VISITED = 0;
 const WALL = 1;
 const NON_VISITED = 2;
 const FUTURE_VISIT = 3;
+
 const CSS_WALL_BRICK = 'wall';
 const CSS_FLOOR_GRASS = 'floor';
-const THICKNESS_PLATFORM = 10;
+const CSS_START_POSTION = 'start-position';
+const CSS_END_POSITION = 'end-position'
 
 function Maze(rows, columns){
   this.rows = rows;
@@ -17,6 +21,7 @@ function Maze(rows, columns){
   this.rotationX = 0;
   this.rotationY = 0;
   this.rotationZ = 0;
+  this.zoom = 1;
   this.createPlatform();
   this.createMaze();
   this.showMaze();
@@ -131,6 +136,9 @@ Maze.prototype.popRandomNode = function(nodes) {
 Maze.prototype.showMaze = function (){
   for(var i=0; i<this.columns; i++) {
     for(var j=0; j<this.rows; j++) {
+      if(i===0 && j===0) {
+        CSS_START_POSTION
+      }
       if(this.maze[i][j]===WALL){
         new Cube(i*CUBE_SIZE, j*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK);
       }
@@ -158,15 +166,32 @@ Maze.prototype.isValidPosition = function(x, y) {
 
 Maze.prototype.rotateX = function(x) {
   this.rotationX += x;
-  this.mazeHtml.style.transform='rotateX('+this.rotationX+'deg) rotateY('+this.rotationY+'deg) rotateZ('+this.rotationZ+'deg)';
+  this.applyTransformations();
 };
 
 Maze.prototype.rotateY = function(y) {
   this.rotationY += y;
-  this.mazeHtml.style.transform='rotateX('+this.rotationX+'deg) rotateY('+this.rotationY+'deg) rotateZ('+this.rotationZ+'deg)';
+  this.applyTransformations();
 };
 
 Maze.prototype.rotateZ = function(z) {
   this.rotationZ += z;
-  this.mazeHtml.style.transform='rotateX('+this.rotationX+'deg) rotateY('+this.rotationY+'deg) rotateZ('+this.rotationZ+'deg)';
+  this.applyTransformations();
+};
+
+Maze.prototype.zoomCamera = function (zoom){
+  this.zoom += zoom;
+  this.mazeHtml.style.transform=
+    'rotateX('+this.rotationX+'deg) ' +
+    'rotateY('+this.rotationY+'deg) ' +
+    'rotateZ('+this.rotationZ+'deg) ' +
+    'translateZ('+this.zoom+'px)';
+};
+
+Maze.prototype.applyTransformations = function (){
+  this.mazeHtml.style.transform=
+    'rotateX('+this.rotationX+'deg) ' +
+    'rotateY('+this.rotationY+'deg) ' +
+    'rotateZ('+this.rotationZ+'deg) ' +
+    'translateZ('+this.zoom+'px)';
 };

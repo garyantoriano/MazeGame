@@ -13,10 +13,14 @@ const K_ROTATE_Y2 = 52;
 const K_ROTATE_Z1 = 55;
 const K_ROTATE_Z2 = 57;
 
+const K_ZOOM_1 = 49;
+const K_ZOOM_2 = 51;
+
 const PROGRESS_BAR_MAX = 500;
-const ROTATION_VELOCITY = 5;
+const CONTROLS_VELOCITY = 5;
 
 const CSS_PLAYER = 'player';
+
 function MazeGame (rows, columns) {
 	this.maze = new Maze(rows, columns);
 	this.player = this.createPlayer();
@@ -109,28 +113,35 @@ MazeGame.prototype.move = function(e) {
 
 			// ROTATIONS
 			case K_ROTATE_X1:
-				this.maze.rotateX(ROTATION_VELOCITY);
+				this.maze.rotateX(CONTROLS_VELOCITY);
 				break;
 
 			case K_ROTATE_X2:
-				this.maze.rotateX(-ROTATION_VELOCITY);
+				this.maze.rotateX(-CONTROLS_VELOCITY);
 				break;
 
 			case K_ROTATE_Y1:
-				console.log(e);
-				this.maze.rotateY(ROTATION_VELOCITY);
+				this.maze.rotateY(CONTROLS_VELOCITY);
 				break;
 
 			case K_ROTATE_Y2:
-				this.maze.rotateY(-ROTATION_VELOCITY);
+				this.maze.rotateY(-CONTROLS_VELOCITY);
 				break;
 
 			case K_ROTATE_Z1:
-				this.maze.rotateZ(-ROTATION_VELOCITY);
+				this.maze.rotateZ(-CONTROLS_VELOCITY);
 				break;
 
 			case K_ROTATE_Z2:
-				this.maze.rotateZ(ROTATION_VELOCITY);
+				this.maze.rotateZ(CONTROLS_VELOCITY);
+				break;
+
+			case K_ZOOM_1:
+				this.maze.zoomCamera(-CONTROLS_VELOCITY*3);
+				break;
+
+			case K_ZOOM_2:
+				this.maze.zoomCamera(+CONTROLS_VELOCITY*3);
 				break;
 		}
 	}
