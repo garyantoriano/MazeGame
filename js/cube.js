@@ -1,7 +1,7 @@
 /**
  * Created by Gary on 11/3/2016.
  */
-function Cube(x, y, z, width, height, thickness, styleClass) {
+function Cube(x, y, z,width , height, thickness, styleClass) {
 	this.x = x;
 	this.y = y;
   this.z = z;

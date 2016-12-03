@@ -21,8 +21,10 @@ function MazeGame (rows, columns) {
 	this.maze = new Maze(rows, columns);
 	this.player = this.createPlayer();
   this.progressBar = new ProgressBar(PROGRESS_BAR_MAX);
+	this.pause = true;
 
 	this.startGame = function () {
+		this.pause = false;
 		setTimeout(this.hideButtonStart, 500);
 		this.resumeGame();
 
@@ -33,18 +35,21 @@ function MazeGame (rows, columns) {
 	};
 
 	this.resumeGame = function () {
+		this.pause = false;
 		document.getElementById('popup-start').classList.add('hide');
 		document.getElementById('btn-pause').classList.remove('hide');
 		document.getElementById('progress-bar-container').classList.remove('hide');
 	};
 
 	this.pauseGame = function () {
+		this.pause = true;
 		document.getElementById('btn-pause').classList.add('hide');
 		document.getElementById('progress-bar-container').classList.add('hide');
 		document.getElementById('popup-start').classList.remove('hide');
 	};
 
 	this.endGame = function () {
+		this.pause = true;
 		document.getElementById('btn-start').classList.remove('hide');
 		document.getElementById('btn-restart').classList.add('hide');
 		this.pauseGame();
@@ -79,54 +84,55 @@ MazeGame.prototype.rotateZ = function (z) {
 };
 
 MazeGame.prototype.move = function(e) {
-	//console.log(e.keyCode);
-	switch (e.keyCode){
-		// CONTROLS FOR PLAYER
-		case K_MOVE_LEFT:
-			if(this.isValidPosition(this.player.x-1, this.player.y))
-				this.player.moveLeft();
-			break;
+	if(this.pause === false) {
+		switch (e.keyCode) {
+			// CONTROLS FOR PLAYER
+			case K_MOVE_LEFT:
+				if(this.isValidPosition(this.player.x-1, this.player.y))
+					this.player.moveLeft();
+				break;
 
-		case K_MOVE_RIGHT:
-			if(this.isValidPosition(this.player.x+1,this.player.y))
-				this.player.moveRight();
-			break;
+			case K_MOVE_RIGHT:
+				if(this.isValidPosition(this.player.x+1,this.player.y))
+					this.player.moveRight();
+				break;
 
-		case K_MOVE_UP:
-			if(this.isValidPosition(this.player.x, this.player.y-1))
-				this.player.moveUp();
-			break;
+			case K_MOVE_UP:
+				if(this.isValidPosition(this.player.x, this.player.y-1))
+					this.player.moveUp();
+				break;
 
-		case K_MOVE_DOWN:
-			if(this.isValidPosition(this.player.x, this.player.y+1))
-				this.player.moveDown();
-			break;
+			case K_MOVE_DOWN:
+				if(this.isValidPosition(this.player.x, this.player.y+1))
+					this.player.moveDown();
+				break;
 
-		// ROTATIONS
-		case K_ROTATE_X1:
-			this.maze.rotateX(ROTATION_VELOCITY);
-			break;
+			// ROTATIONS
+			case K_ROTATE_X1:
+				this.maze.rotateX(ROTATION_VELOCITY);
+				break;
 
-		case K_ROTATE_X2:
-			this.maze.rotateX(-ROTATION_VELOCITY);
-			break;
+			case K_ROTATE_X2:
+				this.maze.rotateX(-ROTATION_VELOCITY);
+				break;
 
-		case K_ROTATE_Y1:
-			console.log(e);
-			this.maze.rotateY(ROTATION_VELOCITY);
-			break;
+			case K_ROTATE_Y1:
+				console.log(e);
+				this.maze.rotateY(ROTATION_VELOCITY);
+				break;
 
-		case K_ROTATE_Y2:
-			this.maze.rotateY(-ROTATION_VELOCITY);
-			break;
+			case K_ROTATE_Y2:
+				this.maze.rotateY(-ROTATION_VELOCITY);
+				break;
 
-		case K_ROTATE_Z1:
-			this.maze.rotateZ(-ROTATION_VELOCITY);
-			break;
+			case K_ROTATE_Z1:
+				this.maze.rotateZ(-ROTATION_VELOCITY);
+				break;
 
-		case K_ROTATE_Z2:
-			this.maze.rotateZ(ROTATION_VELOCITY);
-			break;
+			case K_ROTATE_Z2:
+				this.maze.rotateZ(ROTATION_VELOCITY);
+				break;
+		}
 	}
 };
 

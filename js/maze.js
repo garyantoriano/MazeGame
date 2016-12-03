@@ -24,7 +24,14 @@ function Maze(rows, columns){
 }
 
 Maze.prototype.createPlatform = function (){
-  new Cube(-CUBE_SIZE, CUBE_SIZE*Math.floor(this.rows/2), -2, (this.columns+2)*CUBE_SIZE, THICKNESS_PLATFORM, (this.rows+2)*CUBE_SIZE, CSS_FLOOR_GRASS);
+  var posX = -CUBE_SIZE;
+  var posY = CUBE_SIZE*Math.floor(this.rows/2);
+  var posZ = -2;
+  var width =  (this.columns+2)*CUBE_SIZE;
+  var height = THICKNESS_PLATFORM;
+  var thickness = (this.rows+2)*CUBE_SIZE;
+  var styleClass = CSS_FLOOR_GRASS;
+  new Cube(posX, posY, posZ, width, height, thickness, styleClass);
 };
 
 Maze.prototype.createMaze = function() {
