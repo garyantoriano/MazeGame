@@ -3,7 +3,7 @@
  */
 var mazeGame;
 function startGame() {
-	mazeGame = new MazeGame(9, 13);
+	mazeGame = new MazeGame(1, 3);
 	mazeGame.startGame();
 }
 

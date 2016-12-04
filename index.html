@@ -3,6 +3,7 @@
   <head>
       <meta charset="UTF-8">
       <title>Laberinto</title>
+      <link rel="stylesheet" href="css/information-items.css">
       <link rel="stylesheet" href="css/popup.css">
       <link rel="stylesheet" href="css/progress-bar.css">
       <link rel="stylesheet" href="css/maze.css">
@@ -21,8 +22,12 @@
         </div>
       </div>
 
-      <button id="btn-pause" class="btn-pause hide" onclick="pauseGame()"></button>
-      
+      <div id="information-content" class="information-item hide">
+        <div class="time"></div>
+        <div class="level"><span id="level-number">1</span><span id="level-title">Level</span></div>
+        <button id="btn-pause" class="btn-pause" onclick="pauseGame()"></button>
+      </div>
+
       <div id="progress-bar-container" class="progress-bar-container hide">
         <div class="flag-start"></div>
         <progress id="progress-bar" class="progress-bar" value="0" max="1000"></progress>

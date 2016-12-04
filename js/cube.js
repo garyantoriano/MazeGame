@@ -1,7 +1,7 @@
 /**
  * Created by Gary on 11/3/2016.
  */
-function Cube(x, y, z,width , height, thickness, styleClass) {
+function Cube(x, y, z, width, height, thickness, styleClass) {
 	this.x = x;
 	this.y = y;
   this.z = z;
@@ -10,6 +10,10 @@ function Cube(x, y, z,width , height, thickness, styleClass) {
   this.thickness = thickness;
   this.styleClass = styleClass;
   this.elementHtml = this.createCube();
+  this.rotationX = 0;
+  this.rotationY = 0;
+  this.rotationDirectionX = 1;
+  this.rotationDirectionY = 1;
 }
 
 Cube.prototype.createCube = function() {
@@ -30,11 +34,9 @@ Cube.prototype.createCube = function() {
 
   left.style.transform = 'rotateY(-90deg) translateZ('+(this.thickness/2)+'px)';
   left.classList.add('left');
-  left.style.backgroundColor= 'green';
 
   right.style.transform = 'rotateY(90deg) translateZ('+(this.width-(this.thickness/2))+'px)';
   right.classList.add('right');
-  right.style.backgroundColor= 'green';
 
   var front = document.createElement("div");
   front.style.width = this.width + 'px';
@@ -43,11 +45,9 @@ Cube.prototype.createCube = function() {
 
   front.style.transform = 'translateZ('+(this.thickness/2)+'px)';
   front.classList.add('front');
-  front.style.backgroundColor= 'red';
 
   back.style.transform = 'rotateY(180deg) translateZ('+(this.thickness/2)+'px)';
   back.classList.add('back');
-  back.style.backgroundColor= 'red';
 
 
   var cube = document.createElement("div");
@@ -62,7 +62,8 @@ Cube.prototype.createCube = function() {
   cube.style.top = (this.y) + 'px';
   cube.style.left = (this.x) + 'px';
 
-  cube.style.transform = 'rotateX(90deg) translateY('+((this.height/2)*this.z)+'px)';
+  cube.style.transformOrigin = this.height/2+'px '+this.width/2+'px';
+  cube.style.transform = 'translateZ('+((this.z))+'px)';
 
   var container = document.getElementById('cube-container');
   container.appendChild(cube);
@@ -71,20 +72,35 @@ Cube.prototype.createCube = function() {
 
 Cube.prototype.moveLeft = function () {
   this.x -= 1;
-  this.elementHtml.style.left = (this.x * this.width) + 'px';
+  this.rotationY -= 90*this.rotationDirectionY;
+  this.rotationDirectionX *= -1;
+  this.applyTransformations();
 };
 
 Cube.prototype.moveRight = function () {
   this.x += 1;
-  this.elementHtml.style.left = (this.x * this.width) + 'px';
+  this.rotationY += 90*this.rotationDirectionY;
+  this.rotationDirectionX *= -1;
+  this.applyTransformations();
 };
 
 Cube.prototype.moveUp = function () {
   this.y -= 1;
-  this.elementHtml.style.top = (this.y * this.width) + 'px';
+  this.rotationX += 90*this.rotationDirectionX;
+  this.rotationDirectionY *= -1;
+  this.applyTransformations();
 };
 
 Cube.prototype.moveDown = function () {
   this.y += 1;
+  this.rotationX -= 90*this.rotationDirectionX;
+  this.rotationDirectionY *= -1;
+  this.applyTransformations();
+};
+
+Cube.prototype.applyTransformations = function (){
+
+  this.elementHtml.style.left = (this.x * this.width) + 'px';
   this.elementHtml.style.top = (this.y * this.width) + 'px';
+  this.elementHtml.style.transform = 'rotateX('+this.rotationX+'deg) rotateY('+this.rotationY+'deg)';
 };

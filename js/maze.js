@@ -11,7 +11,7 @@ const FUTURE_VISIT = 3;
 
 const CSS_WALL_BRICK = 'wall';
 const CSS_FLOOR_GRASS = 'floor';
-const CSS_START_POSTION = 'start-position';
+const CSS_START_POSITION = 'start-position';
 const CSS_END_POSITION = 'end-position'
 
 function Maze(rows, columns){
@@ -25,20 +25,27 @@ function Maze(rows, columns){
   this.createPlatform();
   this.createMaze();
   this.showMaze();
+  this.drawStartAndEndPoint();
   this.mazeHtml = document.getElementById('cube-container');
 }
 
 Maze.prototype.createPlatform = function (){
   var posX = -CUBE_SIZE;
-  var posY = CUBE_SIZE*Math.floor(this.rows/2);
-  var posZ = -2;
+  var posY = -CUBE_SIZE;
+  var posZ = -CUBE_SIZE/2;
   var width =  (this.columns+2)*CUBE_SIZE;
-  var height = THICKNESS_PLATFORM;
-  var thickness = (this.rows+2)*CUBE_SIZE;
-  var styleClass = CSS_FLOOR_GRASS;
-  new Cube(posX, posY, posZ, width, height, thickness, styleClass);
+  var height = (this.rows+2)*CUBE_SIZE;
+
+  new Cube(posX, posY, posZ, width, height, THICKNESS_PLATFORM, CSS_FLOOR_GRASS);
 };
 
+Maze.prototype.delete = function (){
+  while(this.mazeHtml.hasChildNodes()) {
+    this.mazeHtml.removeChild(this.mazeHtml.lastChild);
+  }
+};
+
+//*********************** IMPLEMENTATION OF PRIM ALGORITHM ********************************
 Maze.prototype.createMaze = function() {
   var nonVisitedNodes = [];
   var wallNodes = [];
@@ -73,7 +80,7 @@ Maze.prototype.createMaze = function() {
   }
 };
 
-Maze.prototype.deleteWall = function (node){
+Maze.prototype.deleteWall = function(node) {
   if(node.x-2 >= 0 && this.maze[node.x-2][node.y] == VISITED) {
     this.maze[node.x-1][node.y] = VISITED;
     return;
@@ -91,13 +98,13 @@ Maze.prototype.deleteWall = function (node){
   }
 };
 
-Maze.prototype.markAsVisited = function (futureVisitNodes, node){
+Maze.prototype.markAsVisited = function(futureVisitNodes, node) {
   this.maze[node.x][node.y] = VISITED; //Visited
   this.markFutureVisits(futureVisitNodes, node);
 
 };
 
-Maze.prototype.markFutureVisits = function (futureVisitNodes, node){
+Maze.prototype.markFutureVisits = function (futureVisitNodes, node) {
   //Left
   if(node.x-2>= 0) {
     this.addFutureVisit(futureVisitNodes, {x: node.x-2, y: node.y});
@@ -131,14 +138,20 @@ Maze.prototype.popRandomNode = function(nodes) {
   nodes.splice(index, 1); //Quitamos el nodo
   return node;
 };
+//************************ END OF PRIM ALGORITHM **********************************
+
+//Draw Start and End point
+Maze.prototype.drawStartAndEndPoint = function() {
+  new Cube(0, 0, -THICKNESS_PLATFORM/2, CUBE_SIZE, CUBE_SIZE, THICKNESS_PLATFORM, CSS_START_POSITION);
+  new Cube((this.columns-1)*CUBE_SIZE, (this.rows-1)*CUBE_SIZE, -THICKNESS_PLATFORM/2, CUBE_SIZE, CUBE_SIZE, THICKNESS_PLATFORM, CSS_END_POSITION);
+  this.startPoint = {x: 0, y: 0};
+  this.endPoint = {x: this.columns-1, y: this.rows-1};
+};
 
 //********************** SHOW MAZE *********************************************
-Maze.prototype.showMaze = function (){
+Maze.prototype.showMaze = function() {
   for(var i=0; i<this.columns; i++) {
     for(var j=0; j<this.rows; j++) {
-      if(i===0 && j===0) {
-        CSS_START_POSTION
-      }
       if(this.maze[i][j]===WALL){
         new Cube(i*CUBE_SIZE, j*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK);
       }
@@ -157,13 +170,16 @@ Maze.prototype.showMaze = function (){
 };
 
 Maze.prototype.isValidPosition = function(x, y) {
-  if(x >= 0 && x < this.columns && y >= 0 && y < this.rows)
-  {
+  if(x >= 0 && x < this.columns && y >= 0 && y < this.rows) {
     return this.maze[x][y] === 0;
   }
   return false;
 };
 
+Maze.prototype.isOnEndPoint = function(cube) {
+  return cube.x == this.endPoint.x && cube.y  == this.endPoint.y;
+};
+// ******************************* MOTION *************************************
 Maze.prototype.rotateX = function(x) {
   this.rotationX += x;
   this.applyTransformations();
