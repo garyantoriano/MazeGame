@@ -8,7 +8,7 @@
   height: 64px;
 }
 
-.btn-pause, .time, .level {
+.btn-pause, #time, .level {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -33,10 +33,16 @@
   opacity: 1;
 }
 
-.time {
+#time {
   background-image: url('../img/chronometer.png');
   background-size: contain;
   background-position: center;
+  color: yellow;
+  font-size: 14px;
+  text-transform: uppercase;
+  font-weight: bold;
+  text-align: center;
+  line-height: 54px;
 }
 
 .level {

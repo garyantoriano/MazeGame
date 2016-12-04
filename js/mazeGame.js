@@ -27,19 +27,46 @@ function MazeGame (rows, columns) {
 	this.maze = new Maze(rows, columns);
 	this.player = this.createPlayer();
   this.progressBar = new ProgressBar(PROGRESS_BAR_MAX);
-	this.pause = true;
+  this.pause = true;
   this.level = 0;
+  this.levelHtml = document.getElementById('level-number');
+  this.levelHtml.textContent = this.level;
+  this.timeHtml = document.getElementById('time');
+  this.timeHtml.textContent = '00:00';
+  this.time = 180;
+  this.maxTime = 180;
 
-	this.startGame = function () {
-		this.pause = false;
-		setTimeout(this.hideButtonStart, 500);
-		this.resumeGame();
+	this.startGame = function (){
+    this.setIconsNormal();
+    this.pause = false;
+    setTimeout(this.hideButtonStart, 500);
+    this.resumeGame();
 
-		var that = this;
-		setInterval( function (){
-			that.progressBar.incrementValue();
-		}, 200);
-	};
+    var that = this;
+    this.intervalId = setInterval(function (){
+      if (that.time == 0) {
+        that.gameOver();
+      }
+      if (that.time < that.maxTime / 2) {
+        that.enemyIconHappy();
+        that.playerIconSick();
+      }
+      if (that.pause === false) {
+        that.progressBar.incrementValue();
+        that.timeHtml.textContent = that.getNexTime();
+      }
+    }, 50);
+  };
+
+	this.getNexTime = function (){
+	  if(this.time >0) {
+      this.time -= 1;
+      var minutes = Math.floor(this.time/60);
+      var seconds = this.time%60;
+      return minutes + ':' + seconds;
+    }
+    return '0:0';
+  };
 
 	this.resumeGame = function () {
 		this.pause = false;
@@ -55,12 +82,6 @@ function MazeGame (rows, columns) {
 		document.getElementById('popup-start').classList.remove('hide');
 	};
 
-	this.endGame = function () {
-		document.getElementById('btn-start').classList.remove('hide');
-		document.getElementById('btn-resume').classList.add('hide');
-		this.nextLevel();
-	};
-
 	this.hideButtonStart = function () {
 		document.getElementById('btn-start').classList.add('hide');
 		document.getElementById('btn-resume').classList.remove('hide');
@@ -70,12 +91,43 @@ function MazeGame (rows, columns) {
 	document.addEventListener('keypress', this.move.bind(this), false);
 }
 
+MazeGame.prototype.enemyIconHappy = function (){
+  document.getElementById('enemy-icon').classList.add('happy');
+};
+
+MazeGame.prototype.playerIconSick = function (){
+  document.getElementById('player-icon').classList.add('sick');
+};
+
+MazeGame.prototype.setIconsNormal = function (){
+  document.getElementById('enemy-icon').classList.remove('happy');
+  document.getElementById('player-icon').classList.remove('sick');
+
+  document.getElementById('image-popup').classList.remove('sick');
+  document.getElementById('image-popup').classList.remove('normal');
+};
+MazeGame.prototype.gameOver = function (){
+  window.clearInterval(this.intervalId);
+  this.pause = true;
+  document.getElementById('image-popup').classList.add('sick');
+
+  document.getElementById('information-content').classList.add('hide');
+  document.getElementById('progress-bar-container').classList.add('hide');
+  document.getElementById('popup-start').classList.remove('hide');
+
+};
+
 MazeGame.prototype.nextLevel = function (){
   this.maze.delete();
   this.progressBar.reset();
+  this.setIconsNormal();
+
+  this.time = this.maxTime;
+  this.timeHtml.textContent = '0:0';
 
   var increment = this.level%2 === 0 ? this.level : this.level+1;
   this.level++;
+  this.levelHtml.textContent = this.level;
 
   this.maze = new Maze(this.rows+increment, this.columns+increment);
   this.player = this.createPlayer();
@@ -105,7 +157,7 @@ MazeGame.prototype.rotateZ = function (z) {
 
 MazeGame.prototype.verifyEndGame = function (){
   if(this.maze.isOnEndPoint(this.player) === true) {
-    this.endGame();
+    this.nextLevel();
   }
 };
 

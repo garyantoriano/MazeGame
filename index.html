@@ -16,15 +16,15 @@
       <!-- POP UP FOR STAR GAME -->
       <div id="popup-start" class="popup-start">
         <div class="popup-menu">
-          <img id="image-popup" class="image-popup" src="img/pig-normal.png">
+          <div id="image-popup" class="image-popup normal"></div>
           <button id="btn-start" class="btn-start" onclick="startGame()"></button>
           <button id="btn-resume" class="btn-resume hide" onclick="resumeGame()"></button>
         </div>
       </div>
 
       <div id="information-content" class="information-item hide">
-        <div class="time"></div>
-        <div class="level"><span id="level-number">1</span><span id="level-title">Level</span></div>
+        <div id="time">00:00</div>
+        <div class="level"><span id="level-number">0</span><span id="level-title">Level</span></div>
         <button id="btn-pause" class="btn-pause" onclick="pauseGame()"></button>
       </div>
 
@@ -34,7 +34,7 @@
         <div class="progress-bar-img"></div>
         <div class="flag-end"></div>
         <div id="player-icon" class="progress-bar-player-icon"></div>
-        <div class="progress-bar-enemy-icon"></div>
+        <div id="enemy-icon" class="progress-bar-enemy-icon"></div>
       </div>
       
       <!-- MAIN CONTENT - MAZEGAME -->
