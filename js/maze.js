@@ -1,7 +1,7 @@
 /**
  * Created by Gary on 11/26/2016.
  */
-const CUBE_SIZE = 80;
+const MAZE_WITH = 600;
 const THICKNESS_PLATFORM = 10;
 
 const VISITED = 1;
@@ -17,6 +17,7 @@ const CSS_END_POSITION = 'end-position'
 function Maze(rows, columns){
   this.rows = rows;
   this.columns = columns;
+  this.cubeSize = MAZE_WITH/this.columns;
   this.maze = [];
   this.rotationX = 0;
   this.rotationY = 0;
@@ -30,11 +31,11 @@ function Maze(rows, columns){
 }
 
 Maze.prototype.createPlatform = function (){
-  var posX = -CUBE_SIZE;
-  var posY = -CUBE_SIZE;
-  var posZ = -CUBE_SIZE/2;
-  var width =  (this.columns+2)*CUBE_SIZE;
-  var height = (this.rows+2)*CUBE_SIZE;
+  var posX = -this.cubeSize;
+  var posY = -this.cubeSize;
+  var posZ = -this.cubeSize/2;
+  var width =  (this.columns+2)*this.cubeSize;
+  var height = (this.rows+2)*this.cubeSize;
 
   new Cube(posX, posY, posZ, width, height, THICKNESS_PLATFORM, CSS_FLOOR_GRASS);
 };
@@ -142,8 +143,8 @@ Maze.prototype.popRandomNode = function(nodes) {
 
 //Draw Start and End point
 Maze.prototype.drawStartAndEndPoint = function() {
-  new Cube(0, 0, -THICKNESS_PLATFORM/2, CUBE_SIZE, CUBE_SIZE, THICKNESS_PLATFORM, CSS_START_POSITION);
-  new Cube((this.columns-1)*CUBE_SIZE, (this.rows-1)*CUBE_SIZE, -THICKNESS_PLATFORM/2, CUBE_SIZE, CUBE_SIZE, THICKNESS_PLATFORM, CSS_END_POSITION);
+  new Cube(0, 0, -THICKNESS_PLATFORM/2, this.cubeSize, this.cubeSize, THICKNESS_PLATFORM, CSS_START_POSITION);
+  new Cube((this.columns-1)*this.cubeSize, (this.rows-1)*this.cubeSize, -THICKNESS_PLATFORM/2, this.cubeSize, this.cubeSize, THICKNESS_PLATFORM, CSS_END_POSITION);
   this.startPoint = {x: 0, y: 0};
   this.endPoint = {x: this.columns-1, y: this.rows-1};
 };
@@ -153,19 +154,19 @@ Maze.prototype.showMaze = function() {
   for(var i=0; i<this.columns; i++) {
     for(var j=0; j<this.rows; j++) {
       if(this.maze[i][j]===WALL){
-        new Cube(i*CUBE_SIZE, j*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK);
+        new Cube(i*this.cubeSize, j*this.cubeSize, 0, this.cubeSize, this.cubeSize, this.cubeSize, CSS_WALL_BRICK);
       }
     }
   }
 
   //Drawing borders
   for(i=-1; i<=this.columns; i++) {
-    new Cube(i*CUBE_SIZE,-1*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK); //draw top border
-    new Cube(i*CUBE_SIZE, this.rows*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK); //draw down border
+    new Cube(i*this.cubeSize,-1*this.cubeSize, 0, this.cubeSize, this.cubeSize, this.cubeSize, CSS_WALL_BRICK); //draw top border
+    new Cube(i*this.cubeSize, this.rows*this.cubeSize, 0, this.cubeSize, this.cubeSize, this.cubeSize, CSS_WALL_BRICK); //draw down border
   }
   for(i=-1; i<=this.rows; i++) {
-    new Cube(-1*CUBE_SIZE, i*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK); //draw left border
-    new Cube(this.columns*CUBE_SIZE, i*CUBE_SIZE, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_WALL_BRICK); //draw right border
+    new Cube(-1*this.cubeSize, i*this.cubeSize, 0, this.cubeSize, this.cubeSize, this.cubeSize, CSS_WALL_BRICK); //draw left border
+    new Cube(this.columns*this.cubeSize, i*this.cubeSize, 0, this.cubeSize, this.cubeSize, this.cubeSize, CSS_WALL_BRICK); //draw right border
   }
 };
 

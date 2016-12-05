@@ -141,7 +141,7 @@ MazeGame.prototype.nextLevel = function (){
 
 
 MazeGame.prototype.createPlayer = function() {
-	return new Cube(0, 0, 0, CUBE_SIZE, CUBE_SIZE, CUBE_SIZE, CSS_PLAYER);
+	return new Cube(0, 0, 0, this.maze.cubeSize, this.maze.cubeSize, this.maze.cubeSize, CSS_PLAYER);
 };
 
 MazeGame.prototype.isValidPosition = function (x, y) {

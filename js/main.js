@@ -3,12 +3,12 @@
  */
 var mazeGame;
 function startGame() {
-	mazeGame = new MazeGame(3, 3, false);
+	mazeGame = new MazeGame(3, 7, false);
 	mazeGame.startGame();
 }
 
 function startGameIA() {
-	mazeGame = new MazeGameIA(3, 3);
+	mazeGame = new MazeGameIA(3, 7);
 	mazeGame.startGameIA();
 }
 
