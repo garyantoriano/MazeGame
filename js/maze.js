@@ -1,11 +1,11 @@
 /**
  * Created by Gary on 11/26/2016.
  */
-const CUBE_SIZE = 35;
+const CUBE_SIZE = 80;
 const THICKNESS_PLATFORM = 10;
 
-const VISITED = 0;
-const WALL = 1;
+const VISITED = 1;
+const WALL = 0;
 const NON_VISITED = 2;
 const FUTURE_VISIT = 3;
 
@@ -171,7 +171,7 @@ Maze.prototype.showMaze = function() {
 
 Maze.prototype.isValidPosition = function(x, y) {
   if(x >= 0 && x < this.columns && y >= 0 && y < this.rows) {
-    return this.maze[x][y] === 0;
+    return this.maze[x][y] === VISITED;
   }
   return false;
 };

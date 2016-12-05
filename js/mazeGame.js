@@ -16,10 +16,12 @@ const K_ROTATE_Z2 = 57;
 const K_ZOOM_1 = 49;
 const K_ZOOM_2 = 51;
 
-const PROGRESS_BAR_MAX = 500;
-const CONTROLS_VELOCITY = 5;
+const PROGRESS_BAR_MAX = 100;
+const CONTROLS_VELOCITY = 10;
 
 const CSS_PLAYER = 'player';
+const TIME_VELOCITY = 500;
+const MAX_TIME_GAME = 30;
 
 function MazeGame (rows, columns) {
   this.rows = rows;
@@ -33,8 +35,8 @@ function MazeGame (rows, columns) {
   this.levelHtml.textContent = this.level;
   this.timeHtml = document.getElementById('time');
   this.timeHtml.textContent = '00:00';
-  this.time = 180;
-  this.maxTime = 180;
+  this.time = MAX_TIME_GAME;
+  this.maxTime = MAX_TIME_GAME;
 
 	this.startGame = function (){
     this.setIconsNormal();
@@ -55,7 +57,12 @@ function MazeGame (rows, columns) {
         that.progressBar.incrementValue();
         that.timeHtml.textContent = that.getNexTime();
       }
-    }, 50);
+    }, TIME_VELOCITY);
+    var graph = new Graph(this.maze.maze);
+    var start = graph.grid[0][0];
+    var end = graph.grid[this.rows-1][this.rows-1];
+    var result = astar.search(graph, start, end, true);
+    console.log(result);
   };
 
 	this.getNexTime = function (){
@@ -107,6 +114,7 @@ MazeGame.prototype.setIconsNormal = function (){
   document.getElementById('image-popup').classList.remove('normal');
 };
 MazeGame.prototype.gameOver = function (){
+  document.getElementById('btn-resume').classList.add('hide');
   window.clearInterval(this.intervalId);
   this.pause = true;
   document.getElementById('image-popup').classList.add('sick');
@@ -163,6 +171,7 @@ MazeGame.prototype.verifyEndGame = function (){
 
 MazeGame.prototype.move = function(e) {
 	if(this.pause === false) {
+	  // console.log(e.keyCode);
 		switch (e.keyCode) {
 			// CONTROLS FOR PLAYER
 			case K_MOVE_LEFT:

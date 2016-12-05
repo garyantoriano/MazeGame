@@ -77,7 +77,7 @@
 
 .progress-bar-player-icon {
   background-image: url('../img/pig-normal.png');
-  left: 60px;
+  left: 0px;
 }
 
 .progress-bar-player-icon.happy {
