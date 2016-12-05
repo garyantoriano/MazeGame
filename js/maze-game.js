@@ -21,11 +21,12 @@ const CONTROLS_VELOCITY = 10;
 
 const CSS_PLAYER = 'player';
 const TIME_VELOCITY = 500;
-const MAX_TIME_GAME = 30;
+const MAX_TIME_GAME = 50;
 
-function MazeGame (rows, columns) {
+function MazeGame (rows, columns, ia) {
   this.rows = rows;
   this.columns = columns;
+  this.ia = ia;
 	this.maze = new Maze(rows, columns);
 	this.player = this.createPlayer();
   this.progressBar = new ProgressBar(PROGRESS_BAR_MAX);
@@ -58,11 +59,6 @@ function MazeGame (rows, columns) {
         that.timeHtml.textContent = that.getNexTime();
       }
     }, TIME_VELOCITY);
-    var graph = new Graph(this.maze.maze);
-    var start = graph.grid[0][0];
-    var end = graph.grid[this.rows-1][this.rows-1];
-    var result = astar.search(graph, start, end, true);
-    console.log(result);
   };
 
 	this.getNexTime = function (){
@@ -90,7 +86,8 @@ function MazeGame (rows, columns) {
 	};
 
 	this.hideButtonStart = function () {
-		document.getElementById('btn-start').classList.add('hide');
+		document.getElementById('btn-start-human').classList.add('hide');
+    document.getElementById('btn-start-ia').classList.add('hide');
 		document.getElementById('btn-resume').classList.remove('hide');
 	};
 
@@ -170,7 +167,7 @@ MazeGame.prototype.verifyEndGame = function (){
 };
 
 MazeGame.prototype.move = function(e) {
-	if(this.pause === false) {
+	if(this.pause === false && this.ia == false) {
 	  // console.log(e.keyCode);
 		switch (e.keyCode) {
 			// CONTROLS FOR PLAYER
@@ -201,41 +198,43 @@ MazeGame.prototype.move = function(e) {
           this.verifyEndGame();
         }
 				break;
-
-			// ROTATIONS
-			case K_ROTATE_X1:
-				this.maze.rotateX(CONTROLS_VELOCITY);
-				break;
-
-			case K_ROTATE_X2:
-				this.maze.rotateX(-CONTROLS_VELOCITY);
-				break;
-
-			case K_ROTATE_Y1:
-				this.maze.rotateY(CONTROLS_VELOCITY);
-				break;
-
-			case K_ROTATE_Y2:
-				this.maze.rotateY(-CONTROLS_VELOCITY);
-				break;
-
-			case K_ROTATE_Z1:
-				this.maze.rotateZ(-CONTROLS_VELOCITY);
-				break;
-
-			case K_ROTATE_Z2:
-				this.maze.rotateZ(CONTROLS_VELOCITY);
-				break;
-
-			case K_ZOOM_1:
-				this.maze.zoomCamera(-CONTROLS_VELOCITY*3);
-				break;
-
-			case K_ZOOM_2:
-				this.maze.zoomCamera(+CONTROLS_VELOCITY*3);
-				break;
 		}
 	}
+
+	switch (e.keyCode) {
+    // ROTATIONS
+    case K_ROTATE_X1:
+      this.maze.rotateX(CONTROLS_VELOCITY);
+      break;
+
+    case K_ROTATE_X2:
+      this.maze.rotateX(-CONTROLS_VELOCITY);
+      break;
+
+    case K_ROTATE_Y1:
+      this.maze.rotateY(CONTROLS_VELOCITY);
+      break;
+
+    case K_ROTATE_Y2:
+      this.maze.rotateY(-CONTROLS_VELOCITY);
+      break;
+
+    case K_ROTATE_Z1:
+      this.maze.rotateZ(-CONTROLS_VELOCITY);
+      break;
+
+    case K_ROTATE_Z2:
+      this.maze.rotateZ(CONTROLS_VELOCITY);
+      break;
+
+    case K_ZOOM_1:
+      this.maze.zoomCamera(-CONTROLS_VELOCITY*3);
+      break;
+
+    case K_ZOOM_2:
+      this.maze.zoomCamera(+CONTROLS_VELOCITY*3);
+      break;
+  }
 };
 
 
