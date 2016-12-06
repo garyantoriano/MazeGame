@@ -1,8 +1,8 @@
 /**
  * Created by Gary on 11/26/2016.
  */
-const MAZE_WITH = 600;
-const THICKNESS_PLATFORM = 10;
+const MAZE_WITH = 700;
+const THICKNESS_PLATFORM = 20;
 
 const VISITED = 1;
 const WALL = 0;
@@ -143,8 +143,8 @@ Maze.prototype.popRandomNode = function(nodes) {
 
 //Draw Start and End point
 Maze.prototype.drawStartAndEndPoint = function() {
-  new Cube(0, 0, -THICKNESS_PLATFORM/2, this.cubeSize, this.cubeSize, THICKNESS_PLATFORM, CSS_START_POSITION);
-  new Cube((this.columns-1)*this.cubeSize, (this.rows-1)*this.cubeSize, -THICKNESS_PLATFORM/2, this.cubeSize, this.cubeSize, THICKNESS_PLATFORM, CSS_END_POSITION);
+  new Cube(0, 0, -THICKNESS_PLATFORM/2, this.cubeSize, this.cubeSize, this.cubeSize, CSS_START_POSITION);
+  new Cube((this.columns-1)*this.cubeSize, (this.rows-1)*this.cubeSize, -THICKNESS_PLATFORM/2, this.cubeSize, this.cubeSize, this.cubeSize, CSS_END_POSITION);
   this.startPoint = {x: 0, y: 0};
   this.endPoint = {x: this.columns-1, y: this.rows-1};
 };

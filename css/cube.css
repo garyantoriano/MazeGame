@@ -7,17 +7,23 @@
 }
 
 .cube.wall > * {
-  background-image: url("../img/background-brick.jpg");
+  /*background-image: url("../img/backgroun-2.jpg");*/
+  background-image: url("../img/stone.png");
+  background-size: contain;
 }
 
 .cube.player > * {
-  background-image: url("../img/backgroun-4.jpg");
+  background-image: url("../img/wood.jpg");
+  /*background-image: url("../img/backgroun-2.jpg");*/
+  /*background-image: url("../img/backgroun-4.jpg");*/
   background-size: contain;
 }
 
 .cube.floor > * {
-  background-image: url("../img/background-grass.jpg");
+  /*background-image: url("../img/stone.png");*/
+  /*background-size: 50px 50px;*/
   background-repeat: repeat;
+  background-image: url("../img/background-grass.jpg");
   background-size: contain;
 }
 

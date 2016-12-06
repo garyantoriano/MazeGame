@@ -200,9 +200,9 @@ MazeGame.prototype.move = function(e) {
 				break;
 		}
 	}
-
+  // ROTATIONS
 	switch (e.keyCode) {
-    // ROTATIONS
+
     case K_ROTATE_X1:
       this.maze.rotateX(CONTROLS_VELOCITY);
       break;

@@ -14,10 +14,8 @@
 .cube-container {
 	width: 800px;
 	height: 700px;
-  /*background-color: rgba(235, 215, 8, 0.47);*/
   transform-style: preserve-3d;
-  /*transform: rotateX(30deg) rotateZ(-20deg);*/
-  /*transform: rotateX(65deg) rotateY(0deg) rotateZ(0deg);*/
+  transform: rotateX(30deg);
   position: absolute;
   left: 200px;
 }
